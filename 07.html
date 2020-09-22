@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.0 - 07.使用 v-for 循環一個數組</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+  <div id="hello-vue" class="m-3 p-3 border border-success">
+    <button class="btn btn-success" @click="this.seen = !this.seen">今天的預定</button>
+    <hr>
+    <ol>
+      <li v-for="todo in todos" v-if="seen">
+        {{ todo.text }}
+      </li>
+    </ol>
+  </div>
+  <script>
+    const HelloVueApp = {
+      data() {
+        return {
+          seen: false,
+          todos: [
+            { text: '吃飯'},
+            { text: '睡覺'},
+            { text: '打游戲'}
+          ]
+        }
+      }
+    }
+    console.log('Vue----', Vue);
+    Vue.createApp(HelloVueApp).mount('#hello-vue')
+  </script>
+  
+</body>
+</html>

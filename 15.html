@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.0 - 15.組件模版腳本中計算屬性與函數的區別</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+  <div id="hello-vue" class="m-3 p-3 border border-success">
+    <h2>{{ msg }} / {{ this.getResult() }} </h2>
+    <h3>result: {{ this.result }} / {{ this.getDateTime() }} </h3>
+    <button @click="btnClick()" class="btn btn-success">一個按鈕</button>
+  </div>
+  <script>
+    Vue.createApp({ /* options */
+      data() { 
+        return {
+          msg: "i love u."       
+        }
+      },
+      // options api, 之後會講組合式 api
+      computed: {
+        result() {
+          // return this.msg
+          // 計算屬性會cache住頁面剛剛裝載的值，不像methods，
+          // 不要調用計算屬性，來計算
+          // 把計算屬性，當成輔助顯示的工具，不要依賴它做業務計算
+          return this.getDateTime()
+        }
+      },
+      methods: {
+        getResult() {
+          return this.msg
+        },
+        // 這裡會反回最新的日期
+        getDateTime() {
+          now = new Date()
+          return "00:" + now.getMinutes() + ":" + now.getSeconds()
+        },
+        btnClick() {
+          console.log("this.result:", this.result)
+          console.log("this.getDateTime():", this.getDateTime())
+        }
+      }
+    }).mount('#hello-vue')
+  </script>
+  
+</body>
+</html>

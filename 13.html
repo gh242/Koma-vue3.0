@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.0 - 13.Vue 3 中的計算屬性之getter</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+  <div id="hello-vue" class="m-3 p-3 border border-success">
+    <h3>我今年通過了這幾個游戲：</h3>
+    <ol>
+      <li v-for="game in games">{{ game }}</li>
+    </ol>
+
+    <hr>
+    <div class="lead">
+      數數看，我今年一共通釋了 <b class="text-danger">{{playedGGameCount}}</b> 款游戲
+    </div>
+  </div>
+  <script>
+    Vue.createApp({ /* options */
+      data() { 
+        return {
+          games:[
+            "紙片馬里奧",
+            "勇者鬥惡龍建造者2",
+            "賽博朋克2077",
+            "BrawlStars"
+          ]
+        }
+      },
+      // options api, 之後會講組合式 api
+      computed: {
+        playedGGameCount() {
+          return this.games.length
+        }
+      }
+    }).mount('#hello-vue')
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.0 - 08.在單頁App中定義自己的組件 - app.component</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+  <div id="hello-vue" class="m-3 p-3 border border-success">
+    <button class="btn btn-success" @click="this.seen = !this.seen">萬能按鈕</button>
+    <hr>
+    <helo-world :myname="aa" v-if="this.seen" />
+  </div>
+  <script>
+    const HelloVueApp = {
+      data() {
+        return {
+          seen: true,
+          aa: 'KK'
+        }
+      }
+    }
+    const app = Vue.createApp(HelloVueApp)
+    app.component('helo-world', {
+      props: ['myname'],
+      template: `<h1>helo {{ myname }}.</h1>`
+    })
+    app.mount('#hello-vue')
+  </script>
+  
+</body>
+</html>

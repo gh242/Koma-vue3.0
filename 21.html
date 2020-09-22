@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.0 - 21.Vue中事件的處理方法</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+</head>
+<body>
+  <div id="hello-vue" class="m-3 p-3 border border-success">
+    <h2>點擊次數：{{count}}</h2>
+    <button class="btn btn-success m-2" @click="btnClick1()">點擊1</button>
+    <!-- $event 全局事件對象 -->
+    <button class="btn btn-info m-2" @click="btnClick2($event)">點擊2</button>
+    <hr>
+    <h2>表單演示(阻止提交)</h2>
+    <form>
+      <label for="new-todo">添加預定：</label>
+      <input 
+        v-model.trim ="newTodoText" 
+        id="new-todo" 
+        placeholder="例：一起吃雞" 
+      />
+      <button @click="btnClick3($event)">添加</button>
+      <ul>
+        <li v-for="todo in todos">{{ todo }}</li>
+      </ul>
+    </form>
+  </div>
+  <script>
+    const app = Vue.createApp({ /* options */
+      data() { 
+        return {
+          count: 0,
+          newTodoText: '',
+          todos: [],
+        }
+      },
+      methods: {
+        btnClick1() {
+          this.count++;
+        },
+        btnClick2(event) {
+          this.count++;
+          console.log('event=>', event);
+          console.log('event.target=>', event.target);
+          console.log('event.target.attributes.class=>', event.target.attributes.class);
+          console.log('event.target.innerText=>', event.target.innerText);
+        },
+        btnClick3(event) {
+          
+          if(event) {
+            // 阻止事件發生
+            // 不向表單提交
+            event.preventDefault();
+          }
+          if (!this.newTodoText) return
+          this.todos.push(this.newTodoText)
+          this.newTodoText = ''
+        }
+      }
+    })
+    app.component('todo-item', {
+      template:`
+        <li class="p-2">
+        {{ title }}
+        <button class="btn btn-success" @click="$emit('remove')">刪除</button>
+        `,
+        props: ['title']
+    })
+    
+    app.mount('#hello-vue')
+  </script>
+</body>
+</html>

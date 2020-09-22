@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.0 - 14.Vue 3 中的計算屬性之setter</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+  <div id="hello-vue" class="m-3 p-3 border border-success">
+    <h3>{{ this.x }} + {{ this.y }} = {{ this.result }}</h3>
+    <button @click="this.result=100" class="btn btn-success">重新設定 x, y</button>
+  </div>
+  <script>
+    Vue.createApp({ /* options */
+      data() { 
+        return {
+          x: 10,
+          y: 20          
+        }
+      },
+      // options api, 之後會講組合式 api
+      computed: {
+        result: {
+          // getter
+          get() {
+            return this.x + this.y
+          },
+          // setter
+          set(newValue) {
+            // this.x = newValue / 2
+            // this.y = newValue / 4 
+            this.x = newValue - 20
+            this.y = 30
+          }
+        }
+      }
+    }).mount('#hello-vue')
+  </script>
+  
+</body>
+</html>

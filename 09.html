@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.0 - 09.了解Vue對象實例的生成與使用</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+  <div id="hello-vue" class="m-3 p-3 border border-success">
+    {{ a }}
+  </div>
+  <script>
+    // 定義自己的數據對象
+    const myData = { a: 10 }
+    // const vm = Vue.createApp(HelloVueApp)
+    const vm = Vue.createApp({ /* options */
+      data() { 
+        // App返回自定義的數據對象
+        return myData
+      }
+    }).mount('#hello-vue')
+    // 打印數據
+    console.log(vm.a);
+    console.log(vm.$data);
+    console.log(myData);
+    // 改變數據的值
+    vm.a = 100;
+    console.log(vm.a);
+    console.log(vm.$data); // Vue實例屬性
+    console.log(myData);
+  </script>
+  
+</body>
+</html>

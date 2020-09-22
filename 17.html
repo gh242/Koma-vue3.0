@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.0 - 17.在組件中綁定css樣式單</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+</head>
+<body>
+  <div id="hello-vue" class="m-3 p-3 border border-success">
+    <div class="text-danger border display-5">我愛NBA!</div>
+    <hr>
+    <!-- 通過boolean值，控性屬性 -->
+    <div :class="{ 'text-danger': isLoveCBA, border: isLoveCBA, 'display-5': isLoveCBA }">我愛CBA!</div>
+    <button @click="this.isLoveCBA=!this.isLoveCBA" class="btn btn-info">愛CBA</button>
+    <hr>
+
+    <!-- 將cssTitle 拷貝到 ccsCUBA -->
+    <div :class="cssCUBA">我愛CUBA!</div>
+    <button @click="this.cssCUBA=this.cssTitle" class="btn btn-info">愛CUBA</button>
+    <hr>
+
+    <!-- 直接綁定style屬性，不用class方式 -->
+    <div :style="cssWNBA">我愛WNBA!</div>
+  </div>
+  <script>
+    Vue.createApp({ /* options */
+      data() { 
+        return {
+          isLoveCBA: false,
+          cssCUBA: {},
+          cssTitle: {
+            'text-danger': true,
+            'border': true,
+            'display-5': true
+          },
+          cssWNBA: {
+            color: 'blue',
+            fontSize: '36px'
+          }
+        }
+      },
+      methods: {
+      }
+    }).mount('#hello-vue')
+  </script>
+</body>
+</html>
